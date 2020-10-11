@@ -7,6 +7,7 @@ import Analysis from './views/analysis'
 import Header from './components/header'
 import { Layout } from 'antd';
 import { BrowserRouter as Router, Route, Switch, Redirect }from 'react-router-dom';
+import './App.css'
 
 const { Footer, Content } = Layout;
 

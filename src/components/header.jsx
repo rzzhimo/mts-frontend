@@ -38,7 +38,7 @@ class Header extends Component {
           onClick = { this.handleClick } 
           selectedKeys={ [ current ] } 
           theme = 'dark'
-          mode = 'vertical-right'
+          mode = 'horizontal'
           style={ { lineHeight: '64px' } }
         >
           <Menu.Item key="home">
