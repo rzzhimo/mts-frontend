@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Home from './views/home'
 import Monitor from './views/monitor'
-import Search from './views/search'
+import GlobalSearch from './views/globalSearch'
 import Report from './views/report'
 import Analysis from './views/analysis'
 import Header from './components/header'
@@ -21,12 +21,12 @@ class App extends Component {
             <Switch>
               <Route path="/home" exact component={ Home }></Route>
               <Route path="/monitor" component={ Monitor }></Route>
-              <Route path="/search" component={ Search }></Route>
+              <Route path="/search" component={ GlobalSearch }></Route>
               <Route path="/report" component={ Report }></Route>
               <Route path="/analysis" component={ Analysis }></Route>
               <Redirect from="/*" to="/home"></Redirect>
             </Switch>
-            <Footer>Footer</Footer>
+            <Footer>Shanghai Jiaotong University</Footer>
           </Router>
         </Content> 
       </div>
