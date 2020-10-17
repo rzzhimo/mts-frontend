@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
 import store from '../redux/store'
 import actionCreator from '../redux/actionCreator'
 import '../style/searchCondition.css'
@@ -14,21 +13,69 @@ class SearchCondition extends React.Component {
       this.setState({})
     })
   }
-  setCurrentIndex(event) {
-      var currentIndex = parseInt(event.currentTarget.getAttribute('index'), 10);
-      let categoryArr = [ '今日', '24小时', '2天', '3天', '7天', '10天', '自定义' ];
-      actionCreator.changeSearchTime(categoryArr[ currentIndex ])
-      console.log(store.getState())
+  setCurrentTimeRangeIndex(event) {
+    actionCreator.setTimeRangeIndex(parseInt(event.currentTarget.getAttribute('index'), 10));
+  }
+  setCurrentArticleOrderIndex(event) {
+    actionCreator.setArticleOrderIndex(parseInt(event.currentTarget.getAttribute('index'), 10));
+  }
+  setCurrentSensitiveAttributeIndex(event) {
+    actionCreator.setSensitiveAttributeIndex(parseInt(event.currentTarget.getAttribute('index'), 10));
+  }
+  setCurrentSourceTypeIndex(event) {
+    actionCreator.setSourceTypeIndex(parseInt(event.currentTarget.getAttribute('index'), 10));
   }
   render() {
-      let categoryArr = [ '今日', '24小时', '2天', '3天', '7天', '10天', '自定义' ];
-      let itemList = [];
-      for(let i = 0; i < categoryArr.length; i++) {
-          itemList.push(<li key={ i }
-                            index={ i } onClick={ this.setCurrentIndex }
-                        >{ categoryArr[ i ] }</li>);
+      const timeRangeArr = [ '今日', '24小时', '2天', '3天', '7天', '10天', '自定义' ];
+      const articleOrderArr = [ '时间降序', '时间升序' ];
+      const sensitiveAttributeArr = [ '全部', '敏感', '非敏感' ];
+      const sourceTypeArr = [ '全部', '网站', '论坛', '微博', '微信', '博客', '新闻' ];
+      const timeRangeList = [];
+      for(let i = 0; i < timeRangeArr.length; i++) {
+        timeRangeList.push(<li key={ i }
+                            index={ i } 
+                            className={ store.getState().timeRangeIndex === i ? 'active' : '' }
+                            onClick={ this.setCurrentTimeRangeIndex }
+                        >{ timeRangeArr[ i ] }</li>);
       }
-      return <ul className="category">{itemList}</ul>
+      const articleOrderList = [];
+      for(let i = 0; i < articleOrderArr.length; i++) {
+        articleOrderList.push(<li key={ i }
+                            index={ i } 
+                            className={ store.getState().articleOrderIndex === i ? 'active' : '' }
+                            onClick={ this.setCurrentArticleOrderIndex }
+                        >{ articleOrderArr[ i ] }</li>);
+      }
+      const sensitiveAttributeList = [];
+      for(let i = 0; i < sensitiveAttributeArr.length; i++) {
+        sensitiveAttributeList.push(<li key={ i }
+                            index={ i } 
+                            className={ store.getState().sensitiveAttributeIndex === i ? 'active' : '' }
+                            onClick={ this.setCurrentSensitiveAttributeIndex }
+                        >{ sensitiveAttributeArr[ i ] }</li>);
+      }
+      const sourceTypeList = [];
+      for(let i = 0; i < sourceTypeArr.length; i++) {
+        sourceTypeList.push(<li key={ i }
+                            index={ i } 
+                            className={ store.getState().sourceTypeIndex === i ? 'active' : '' }
+                            onClick={ this.setCurrentSourceTypeIndex }
+                        >{ sourceTypeArr[ i ] }</li>);
+      }
+      return <div>
+        <div>
+          <ul className="timeRange">{timeRangeList}</ul>
+        </div>
+        <div>
+          <ul className="articleOrder">{articleOrderList}</ul>
+        </div>
+        <div>
+          <ul className="sensitiveAttribute">{sensitiveAttributeList}</ul>
+        </div>
+        <div>
+          <ul className="sourceType">{sourceTypeList}</ul>
+        </div>
+      </div>
   }
 }
 

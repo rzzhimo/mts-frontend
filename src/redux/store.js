@@ -6,5 +6,5 @@
 */
 import { createStore } from 'redux'
 import reducer from './reducer' // reducer组件
-let Store = createStore(reducer) // 生成一个新的Store
+const Store = createStore(reducer) // 生成一个新的Store
 export default Store

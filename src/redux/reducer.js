@@ -12,14 +12,23 @@ import State from './state'
 */
 export default (prevState = State, actions) => {
   // 创建一个新的数据, 赋值prevState
-  let newData = prevState
+  const newData = prevState
   // 数据的修改
   // reducer 组件中接收到actionCreator中的action, 并解构出里面的属性
-  let { type, payload } = actions
+  const { type, payload } = actions
   // 使用switch方法, 判断调用的是哪个方法. 这时候就需要使用到type标识
   switch (type) {
-    case 'SET_SEARCH_TIME': // 判断type标识
-      newData.time = payload // 修改newData中的name为action中传来的数据
+    case 'SET_TIME_RANGE_INDEX': // 判断type标识
+      newData.timeRangeIndex = payload // 修改newData中的timeRangeIndex为action中传来的数据
+      break;
+    case 'SET_ARTICLE_ORDER_INDEX': 
+      newData.articleOrderIndex = payload 
+      break;
+    case 'SET_SENSITIVE_ATTRIBUTE_INDEX': 
+      newData.sensitiveAttributeIndex = payload 
+      break;
+    case 'SET_SOURCE_TYPE_INDEX':
+      newData.sourceTypeIndex = payload
       break;
     default:
       break;
