@@ -12,7 +12,7 @@ import State from './state'
 */
 export default (prevState = State, actions) => {
   // 创建一个新的数据, 赋值prevState
-  const newData = prevState
+  const newData = { ...prevState }
   // 数据的修改
   // reducer 组件中接收到actionCreator中的action, 并解构出里面的属性
   const { type, payload } = actions

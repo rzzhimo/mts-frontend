@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
+import { Divider } from 'antd';
 import store from '../redux/store'
 import actionCreator from '../redux/actionCreator'
 import PropTypes from 'prop-types';
@@ -71,19 +72,28 @@ class SearchCondition extends Component {
                             onClick={ this.setCurrentSourceTypeIndex }
                         >{ sourceTypeArr[ i ] }</li>);
       }
-      return <div>
-        <div>
-          <ul className="timeRange">{timeRangeList}</ul>
+      return <div id="conditionDiv">
+        <div class="conditionWrapper">
+          <span>时间范围：</span>
+          <ul className="conditionList timeRange">{timeRangeList}</ul>
         </div>
-        <div>
-          <ul className="articleOrder">{articleOrderList}</ul>
+        <Divider className="divider"/>
+        <div class="conditionWrapper">
+          <div class="articleOrderWrapper">
+            <span>文章排序：</span>
+            <ul className="conditionList articleOrder">{articleOrderList}</ul>
+          </div>
+          <div class="sensitiveAttributeWrapper">
+            <span>敏感属性：</span>
+            <ul className="conditionList sensitiveAttribute">{sensitiveAttributeList}</ul>
+          </div>
         </div>
-        <div>
-          <ul className="sensitiveAttribute">{sensitiveAttributeList}</ul>
+        <Divider className="divider"/>
+        <div class="conditionWrapper">
+          <span>来源类型：</span>
+          <ul className="conditionList sourceType">{sourceTypeList}</ul>
         </div>
-        <div>
-          <ul className="sourceType">{sourceTypeList}</ul>
-        </div>
+        <Divider className="divider"/>
       </div>
   }
 }
