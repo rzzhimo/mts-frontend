@@ -1,3 +1,4 @@
-#searchInput {
-  margin: 10px 90px;
+#inputArea {
+  margin: 20px 200px;
+  display: flex;
 }

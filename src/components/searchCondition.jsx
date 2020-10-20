@@ -2,9 +2,17 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import store from '../redux/store'
 import actionCreator from '../redux/actionCreator'
+import PropTypes from 'prop-types';
 import '../style/searchCondition.css'
 
-class SearchCondition extends React.Component {
+class SearchCondition extends Component {
+  static propTypes = {
+    timeRangeIndex: PropTypes.number,
+    articleOrderIndex: PropTypes.number,
+    sensitiveAttributeIndex: PropTypes.number,
+    sourceTypeIndex: PropTypes.number
+  };
+  
   componentDidMount() {
     // 使用subscribe监听reducer的改动.只要reducer中数据改变就会触发
     store.subscribe(() => {
@@ -15,6 +23,7 @@ class SearchCondition extends React.Component {
   }
   setCurrentTimeRangeIndex(event) {
     actionCreator.setTimeRangeIndex(parseInt(event.currentTarget.getAttribute('index'), 10));
+    console.log(this.props);
   }
   setCurrentArticleOrderIndex(event) {
     actionCreator.setArticleOrderIndex(parseInt(event.currentTarget.getAttribute('index'), 10));
@@ -35,7 +44,7 @@ class SearchCondition extends React.Component {
         timeRangeList.push(<li key={ i }
                             index={ i } 
                             className={ store.getState().timeRangeIndex === i ? 'active' : '' }
-                            onClick={ this.setCurrentTimeRangeIndex }
+                            onClick={ this.setCurrentTimeRangeIndex.bind(this) }
                         >{ timeRangeArr[ i ] }</li>);
       }
       const articleOrderList = [];
@@ -79,6 +88,13 @@ class SearchCondition extends React.Component {
   }
 }
 
-export default connect(
+const mapStateToProps = (state) => {
+  return {
+    timeRangeIndex: state.timeRangeIndex,
+    articleOrderIndex: state.articleOrderIndex,
+    sensitiveAttributeIndex: state.sensitiveAttributeIndex,
+    sourceTypeIndex: state.sourceTypeIndex
+  }
+}
 
-)(SearchCondition) 
+export default connect(mapStateToProps)(SearchCondition)
