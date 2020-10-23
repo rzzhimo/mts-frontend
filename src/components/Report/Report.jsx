@@ -10,4 +10,4 @@ class Report extends Component {
   }
 }
 
-export default Report
+export default Report;

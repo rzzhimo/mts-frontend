@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Input, Button, Table } from 'antd';
-import '../style/globalSearch.css'
-import SearchCondition from '../components/searchCondition';
+import './GlobalSearch.css'
+import SearchCondition from './SearchCondition';
 
 class GlobalSearch extends Component {
   constructor () {
@@ -67,7 +67,7 @@ class GlobalSearch extends Component {
     ];
 
     return (
-      <div>
+      <React.Fragment>
         <div id="inputArea">
           <Input 
             placeholder="请输入关键字"
@@ -94,8 +94,7 @@ class GlobalSearch extends Component {
           dataSource={ data }
           />
         </div>
-
-      </div>
+      </React.Fragment>
     )
   }
 }

@@ -10,4 +10,4 @@ class Analysis extends Component {
   }
 }
 
-export default Analysis
+export default Analysis;

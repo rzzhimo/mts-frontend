@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import Home from './views/home'
-import Monitor from './views/monitor'
-import GlobalSearch from './views/globalSearch'
-import Report from './views/report'
-import Analysis from './views/analysis'
-import Header from './components/header'
+import Home from './components/Home/Home'
+import Monitor from './components/Monitor/Monitor'
+import GlobalSearch from './components/GlobalSearch/GlobalSearch'
+import Report from './components/Report/Report'
+import Analysis from './components/Analysis/Analysis'
+import Header from './components/Header'
 import { Layout } from 'antd';
 import { BrowserRouter as Router, Route, Switch, Redirect }from 'react-router-dom';
 import './App.css'

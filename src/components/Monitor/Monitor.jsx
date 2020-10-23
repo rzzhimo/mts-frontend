@@ -10,4 +10,4 @@ class Monitor extends Component {
   }
 }
 
-export default Monitor
+export default Monitor;
