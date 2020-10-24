@@ -1,7 +1,8 @@
-import React, { Component }  from 'react';
+import React, { Component } from 'react';
 import { Menu } from 'antd';
 import { Link, withRouter } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
+
 const history = createBrowserHistory() // history模式
 
 class Header extends Component {
@@ -9,36 +10,39 @@ class Header extends Component {
     super(props);
     this.state = {
       logo: '',
-      current: 'home'
+      current: 'home',
     }
   }
-  handleClick = e => {
+
+  handleClick = (e) => {
     this.setState({ current: e.key });
   }
+
   componentDidMount = () => {
-    let moren = this.props.location.pathname
+    const moren = this.props.location.pathname
     let text = moren.substring(moren.lastIndexOf('/') + 1, moren.length)
     ![ 'home', 'monitor', 'search', 'report', 'analysis' ].includes(text) && (text = 'home')
     this.setState({
-      current: text
+      current: text,
     })
     history.listen((event) => {
-      let test = event.pathname
-      let text = test.substring(test.lastIndexOf('/') + 1, test.length)
+      const test = event.pathname
+      const text = test.substring(test.lastIndexOf('/') + 1, test.length)
       this.setState({
-        current: text
+        current: text,
       })
     })
   }
+
   render() {
     const { current } = this.state;
-    return(
+    return (
       <div>
-        <Menu 
-          onClick = { this.handleClick } 
-          selectedKeys={ [ current ] } 
-          theme = 'dark'
-          mode = 'horizontal'
+        <Menu
+          onClick={ this.handleClick }
+          selectedKeys={ [ current ] }
+          theme="dark"
+          mode="horizontal"
           style={ { lineHeight: '64px' } }
         >
           <Menu.Item key="home">
