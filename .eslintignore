@@ -1,0 +1,12 @@
+# default path
+
+node_modules
+scripts
+config
+build
+
+*.ts
+*.tsx
+
+# Add other ignored path here
+

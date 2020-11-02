@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 class Monitor extends Component {
-  render () {
+  render() {
     return (
       <div>
         <h1> Monitor </h1>
@@ -10,4 +10,4 @@ class Monitor extends Component {
   }
 }
 
-export default Monitor
+export default Monitor;

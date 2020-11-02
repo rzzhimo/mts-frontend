@@ -1,34 +1,36 @@
 import React, { Component } from 'react';
-import Home from './views/home'
-import Monitor from './views/monitor'
-import GlobalSearch from './views/globalSearch'
-import Report from './views/report'
-import Analysis from './views/analysis'
-import Header from './components/header'
 import { Layout } from 'antd';
-import { BrowserRouter as Router, Route, Switch, Redirect }from 'react-router-dom';
-import './App.css'
+import {
+  BrowserRouter as Router, Route, Switch, Redirect,
+} from 'react-router-dom';
+import Home from './components/Home/Home';
+import Monitor from './components/Monitor/Monitor';
+import GlobalSearch from './components/GlobalSearch/GlobalSearch';
+import Report from './components/Report/Report';
+import Analysis from './components/Analysis/Analysis';
+import Header from './components/Header';
+import './App.css';
 
 const { Footer, Content } = Layout;
 
 class App extends Component {
-  render () {
+  render() {
     return (
-      <div className="App" >
+      <div className="App">
         <Content>
           <Router>
             <Header />
             <Switch>
-              <Route path="/home" exact component={ Home }></Route>
-              <Route path="/monitor" component={ Monitor }></Route>
-              <Route path="/search" component={ GlobalSearch }></Route>
-              <Route path="/report" component={ Report }></Route>
-              <Route path="/analysis" component={ Analysis }></Route>
-              <Redirect from="/*" to="/home"></Redirect>
+              <Route path="/home" exact component={ Home } />
+              <Route path="/monitor" component={ Monitor } />
+              <Route path="/search" component={ GlobalSearch } />
+              <Route path="/report" component={ Report } />
+              <Route path="/analysis" component={ Analysis } />
+              <Redirect from="/*" to="/home" />
             </Switch>
             <Footer>Shanghai Jiaotong University</Footer>
           </Router>
-        </Content> 
+        </Content>
       </div>
     );
   }

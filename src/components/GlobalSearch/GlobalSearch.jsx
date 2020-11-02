@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Input, Button, Table } from 'antd';
-import '../style/globalSearch.css'
-import SearchCondition from '../components/searchCondition';
+import './GlobalSearch.css';
+import SearchCondition from './SearchCondition';
 
 class GlobalSearch extends Component {
-  constructor () {
+  constructor() {
     super();
     this.state = {
       searchKeyword: '',
@@ -12,23 +12,23 @@ class GlobalSearch extends Component {
     this.textInput = React.createRef();
   }
 
-  handleKeywordChange (event) {
+  handleKeywordChange(event) {
     this.setState({
-      searchKeyword: event.target.value
-    })
+      searchKeyword: event.target.value,
+    });
   }
 
   clearInput() {
     this.textInput.current.state.value = '';
-    this.setState({})
+    this.setState({});
   }
 
-  render () {
+  render() {
     const columns = [
       {
         title: 'Name',
         dataIndex: 'name',
-        render: text => <a>{text}</a>,
+        render: (text) => <a>{text}</a>,
       },
       {
         title: 'Age',
@@ -67,37 +67,41 @@ class GlobalSearch extends Component {
     ];
 
     return (
-      <div>
+      <>
         <div id="inputArea">
-          <Input 
+          <Input
             placeholder="请输入关键字"
-            onChange={ this.handleKeywordChange.bind(this) }
-            ref={ this.textInput }/>
-          <Button 
+            onChange={this.handleKeywordChange.bind(this)}
+            ref={this.textInput}
+          />
+          <Button
             type="primary"
-            onClick={ this.clearInput.bind(this) }>
-            清空</Button>
+            onClick={this.clearInput.bind(this)}
+          >
+            清空
+          </Button>
         </div>
         <div>
-          <SearchCondition/>
+          <SearchCondition />
         </div>
         <div id="searchButtonWrapper">
-          <Button 
-              type="primary"
-              size="large"
-              block>
-            查询</Button>
+          <Button
+            type="primary"
+            size="large"
+            block
+          >
+            查询
+          </Button>
         </div>
         <div id="tableWrapper">
           <Table
-          columns={ columns }
-          dataSource={ data }
+            columns={columns}
+            dataSource={data}
           />
         </div>
-
-      </div>
-    )
+      </>
+    );
   }
 }
 
-export default GlobalSearch
+export default GlobalSearch;
