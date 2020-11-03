@@ -7,6 +7,7 @@ import Home from './components/Home/Home';
 import Monitor from './components/Monitor/Monitor';
 import GlobalSearch from './components/GlobalSearch/GlobalSearch';
 import Report from './components/Report/Report';
+import Manager from './components/Manager/Manager';
 import Analysis from './components/Analysis/Analysis';
 import Header from './components/Header';
 import './App.css';
@@ -25,6 +26,7 @@ class App extends Component {
               <Route path="/monitor" component={ Monitor } />
               <Route path="/search" component={ GlobalSearch } />
               <Route path="/report" component={ Report } />
+              <Route path="/manager" component={ Manager }></Route>
               <Route path="/analysis" component={ Analysis } />
               <Redirect from="/*" to="/home" />
             </Switch>
