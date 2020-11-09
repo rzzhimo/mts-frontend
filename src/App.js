@@ -11,6 +11,7 @@ import Manager from './components/Manager/Manager';
 import Analysis from './components/Analysis/Analysis';
 import Header from './components/Header';
 import './App.css';
+import './constant.scss';
 
 const { Footer, Content } = Layout;
 
