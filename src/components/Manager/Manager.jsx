@@ -1,152 +1,69 @@
 import React, { Component } from 'react';
-import { Space, Input, Button, Table } from 'antd';
-import './Manager.css'
+import { Layout, Menu, Breadcrumb } from 'antd';
+import {
+  FolderOutlined,
+  UnorderedListOutlined,
+} from '@ant-design/icons';
+import UserList from './UserList'
+import RoleList from './RoleList'
+import OrganizationList from './OrganizationList'
+import './Manager.css';
+
+const { Content, Sider } = Layout;
+const { SubMenu } = Menu;
 
 class Manager extends Component {
-    constructor () {
-        super();
-        this.state = {
-          searchKeyword: '',
-        };
-        this.loginname = React.createRef();
-        this.username = React.createRef();
-      }
-    
-      handleKeywordChange (event) {
-        this.setState({
-          searchKeyword: event.target.value
-        })
-      }
-    
-      query() {
-        this.loginname.current.state.value = '';
-        this.username.current.state.value = '';
-        this.setState({})
-      }
-      modify() {
-        this.loginname.current.state.value = '';
-        this.username.current.state.value = '';
-        this.setState({})
-      }
-      delete() {
-        this.loginname.current.state.value = '';
-        this.username.current.state.value = '';
-        this.setState({})
-      }
-  render () {
-    const columns = [
-        {
-          title: '登录名',
-          dataIndex: 'loginname',
-          render: text => <a>{text}</a>,
-        },
-        {
-          title: '用户名',
-          dataIndex: 'username',
-          render: text => <a>{text}</a>,
-        },
-        {
-          title: '手机',
-          dataIndex: 'phone',
-        },
-        {
-            title: '邮箱',
-            dataIndex: 'email',
-          },
-       
-        {
-            title: '方案数',
-            dataIndex: 'projectNum',
-        },
-        {
-            title: '有效期',
-            dataIndex: 'validDate',
-        },
-        {
-            title: '状态',
-            dataIndex: 'state',
-            render: text => <span>{text===1?"可用":"不可用"}</span>,
-        },
-        {
-            title: '操作',
-            dataIndex: 'operation',
-            render: () => (
-              <Space size="middle">
-                <a onClick={ this.modify.bind(this) }>修改 </a>
-                <a onClick={ this.delete.bind(this) }>删除</a>
-              </Space>
-              ),
-        },
-      ];
-      const data = [
-        {
-          key: '1',
-          loginname: '11111',
-          username: '11111',
-          phone: '17890893765',
-          email:'hutest@163.com',
-          projectNum:34,
-          validDate:'2099-12-31 23:59:59.0',
-          state:1,
-        },
-        {
-            key: '2',
-            loginname: 'twst09',
-            username: '123',
-            phone: '17890893765',
-            email:'hutest@163.com',
-            projectNum:344,
-            validDate:'2099-12-31 23:59:59.0',
-            state:1,
-        },
-        {
-            key: '3',
-            loginname: '11111',
-            username: '11111',
-            phone: '17890893765',
-            email:'hutest@163.com',
-            projectNum:3454,
-            validDate:'2099-12-31 23:59:59.0',
-            state:1,
-        },
-    ];
+  constructor() {
+    super();
+    this.state = {
+      menuSelectedKey: '1'
+    };
+  }
+
+  menuHandleClick = (e) => {
+    this.setState({ menuSelectedKey: e.key })
+  }
+
+  render() {
     return (
-      <div>
-        <h1> Manager </h1>
-        <div id="inputArea">
-          <Space>
-            <span>登录名：</span>
-            <Input 
-                placeholder=""
-                onChange={ this.handleKeywordChange.bind(this) }
-                ref={ this.loginname }/>
-            <span>用户名：</span>
-            <Input 
-                placeholder=""
-                onChange={ this.handleKeywordChange.bind(this) }
-                ref={ this.username }/>
-            <Button 
-              type="primary"
-              onClick={ this.query.bind(this) }>
-              查询</Button>
-          </Space>
-        </div>
-        <div id="searchButtonWrapper">
-          <Button 
-              type="primary"
-              size="large"
-              block>
-            添加用户</Button>
-        </div>
-        <div id="tableWrapper">
-          <Table
-          columns={ columns }
-          dataSource={ data }
-          />
-        </div>
-      </div>
+      <Layout style={ { minHeight: '100vh' } }>
+        <Sider className="sider">
+          <div className="logo" />
+          <Menu theme="light" defaultSelectedKeys={ [ '1' ] } mode="inline">
+            <SubMenu key="sub1" icon={ <FolderOutlined /> } title="用户管理">
+              <Menu.Item key="1" icon={ <UnorderedListOutlined /> } onClick={ this.menuHandleClick }>用户列表</Menu.Item>
+            </SubMenu>
+            <SubMenu key="sub1" icon={ <FolderOutlined /> } title="角色管理">
+              <Menu.Item key="2" icon={ <UnorderedListOutlined /> } onClick={ this.menuHandleClick }>角色列表</Menu.Item>
+            </SubMenu>
+            <SubMenu key="sub2" icon={ <FolderOutlined /> } title="机构管理">
+              <Menu.Item key="3" icon={ <UnorderedListOutlined /> } onClick={ this.menuHandleClick }>机构列表</Menu.Item>
+            </SubMenu>
+          </Menu>
+        </Sider>
+        <Layout className="content">
+          <Breadcrumb className="breadcrumb" separator=">">
+            <Breadcrumb.Item>系统设置</Breadcrumb.Item>
+            <Breadcrumb.Item>
+              {this.state.menuSelectedKey === '1' && (<span>用户管理</span>)}
+              {this.state.menuSelectedKey === '2' && (<span>角色管理</span>)}
+              {this.state.menuSelectedKey === '3' && (<span>机构管理</span>)}
+            </Breadcrumb.Item>
+            <Breadcrumb.Item>
+              {this.state.menuSelectedKey === '1' && (<span>用户列表</span>)}
+              {this.state.menuSelectedKey === '2' && (<span>角色列表</span>)}
+              {this.state.menuSelectedKey === '3' && (<span>机构列表</span>)}
+            </Breadcrumb.Item>
+          </Breadcrumb>
+          <Content className="site-layout-background">
+            {this.state.menuSelectedKey === '1' && (<UserList />)}
+            {this.state.menuSelectedKey === '2' && (<RoleList />)}
+            {this.state.menuSelectedKey === '3' && (<OrganizationList />)}
+          </Content>
+        </Layout>
+      </Layout>
     )
   }
 }
 
-export default Manager
+export default Manager;
