@@ -3,7 +3,7 @@ import { Form, Input, Button,Radio,Space } from 'antd';
 import {
     QuestionCircleFilled,
   } from '@ant-design/icons';
-import './InfoList.css';
+import '../InfoList/InfoList.scss';
 
 const layout = {
     labelCol: {

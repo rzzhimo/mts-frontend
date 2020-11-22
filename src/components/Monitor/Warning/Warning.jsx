@@ -1,6 +1,6 @@
 import { Layout, Button, Radio,Card } from 'antd';
 import React, { Component } from 'react';
-import './InfoList.css';
+import '../InfoList/InfoList.scss';
 const {Content,} = Layout;
 
 
