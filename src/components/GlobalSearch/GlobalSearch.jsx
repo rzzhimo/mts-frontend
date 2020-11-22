@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Input, Button, Table } from 'antd';
 import './GlobalSearch.css';
-import SearchCondition from './SearchCondition';
+import SearchCondition from '../common/SearchCondition/SearchCondition';
 
 class GlobalSearch extends Component {
   constructor() {
