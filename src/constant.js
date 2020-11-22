@@ -10,7 +10,7 @@ export const random = (min, max) => Math.floor(Math.random() * (max - min) + min
 
 export const sensitiveLevels = [
   { label: '敏感', value: '敏感', color: '#ff0000' },
-  { label: '非敏感', value: '敏感', color: '#ffa500' },
+  { label: '非敏感', value: '非敏感', color: '#ffa500' },
 ];
 
 export const sourceTypes = [
@@ -22,14 +22,13 @@ export const sourceTypes = [
   { label: '新闻', value: '新闻' },
 ];
 
-const secPerDay = 24 * 1000 * 3600;
 export const timeRangeOptions = [
   { label: '今日', value: '今日' },
-  { label: '一日', min: 0 * secPerDay, max: 1 * secPerDay, value: '一日' },
-  { label: '两日', min: 0 * secPerDay, max: 2 * secPerDay, value: '两日' },
-  { label: '三日', min: 0 * secPerDay, max: 3 * secPerDay, value: '三日' },
-  { label: '七日', min: 0 * secPerDay, max: 7 * secPerDay, value: '七日' },
-  { label: '十日', min: 0 * secPerDay, max: 10 * secPerDay, value: '十日' },
+  { label: '一日', value: '一日' },
+  { label: '两日', value: '两日' },
+  { label: '三日', value: '三日' },
+  { label: '七日', value: '七日' },
+  { label: '十日', value: '十日' },
   { label: '自定义', value: '自定义' },
 ];
 export const timeOrderOptions = [

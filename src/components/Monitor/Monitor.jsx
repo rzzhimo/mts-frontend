@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Layout, Menu, Button, Input, Divider } from 'antd';
 import Modify from './Modify/Modify';
 import Warning from './Warning/Warning';
-import InfoList from './InfoList/InfoList';
+import InfoList from '../common/InfoList/InfoList';
 import Direction from './Direction/Direction';
 import payload from './payload';
 import './Monitor.scss';
@@ -59,6 +59,7 @@ class Monitor extends Component {
     const { currentMenu, currentSubMenu, currentForm, menu, results } = this.state;
     const currentItem = results.filter(item => item.value === currentMenu).pop();
     const currentSubItem = currentItem?.subMenu.filter(item => item.value === currentSubMenu).pop();
+    console.log(currentMenu, currentSubMenu);
     return (
       <Layout style={{ minHeight: '100vh' }}>
         <Sider>
@@ -109,6 +110,7 @@ class Monitor extends Component {
               <InfoList
                 currentItem={currentItem}
                 currentSubItem={currentSubItem}
+                data={currentSubItem.articles}
               />
             )}
             {currentForm === 'track' && (<Direction />)}
