@@ -5,7 +5,7 @@ import {
     PlusOutlined,
     SearchOutlined,
   } from '@ant-design/icons';
-import '../InfoList/InfoList.scss';
+import '../../common/InfoList/InfoList.scss';
 const { Content, Sider } = Layout;
 class Direction extends Component {
     constructor() {

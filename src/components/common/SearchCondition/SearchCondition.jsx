@@ -1,45 +1,32 @@
 import React, { Component } from 'react';
 import { Divider } from 'antd';
+import { connect } from 'react-redux';
 import { sourceTypes, sensitiveLevels, timeRangeOptions, timeOrderOptions } from '../../../constant';
 import './SearchCondition.scss';
+import { actionCreator } from '../../../redux/actionCreator';
 
 class SearchCondition extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      currentTimeRange: timeRangeOptions[0].value,
-      currentTimeOrder: timeOrderOptions[0].value,
-      currentSensitive: sensitiveLevels[0].value,
-      currentSource: sourceTypes[0].value,
-    };
-  }
-
   handleClick = (type, value) => {
-    new Promise((resolve) => {
-      switch (type) {
-        case 'source':
-          this.setState({ currentSource: value.value });
-          break;
-        case 'sensitive':
-          this.setState({ currentSensitive: value.value });
-          break;
-        case 'timeRange':
-          this.setState({ currentTimeRange: value.value });
-          break;
-        case 'timeOrder':
-          this.setState({ currentTimeOrder: value.value });
-          break;
-        default:
-          break;
-      }
-      resolve();
-    }).then(() => {
-      if (this.props.onChange) this.props.onChange(this.state);
-    });
+    switch (type) {
+      case 'source':
+        this.props.setFilter({ currentSource: value.value });
+        break;
+      case 'sensitive':
+        this.props.setFilter({ currentSensitive: value.value });
+        break;
+      case 'timeRange':
+        this.props.setFilter({ currentTimeRange: value.value });
+        break;
+      case 'timeOrder':
+        this.props.setFilter({ currentTimeOrder: value.value });
+        break;
+      default:
+        break;
+    }
   };
 
   render() {
-    const { currentTimeRange, currentTimeOrder, currentSensitive, currentSource } = this.state;
+    const { currentTimeRange, currentTimeOrder, currentSensitive, currentSource } = this.props;
     return (
       <div id="conditionDiv">
         <div className="conditionWrapper">
@@ -65,7 +52,7 @@ class SearchCondition extends Component {
                 <li
                   key={item.value}
                   className={currentTimeOrder === item.value ? 'active' : ''}
-                  onClick={() => this.handleClick('timeOrder', item.value)}
+                  onClick={() => this.handleClick('timeOrder', item)}
                 >
                   {item.label}
                 </li>
@@ -109,4 +96,15 @@ class SearchCondition extends Component {
   }
 }
 
-export default SearchCondition;
+const mapStateToProps = (state) => ({
+  currentTimeRange: state.currentTimeRange,
+  currentTimeOrder: state.currentTimeOrder,
+  currentSensitive: state.currentSensitive,
+  currentSource: state.currentSource,
+});
+
+const mapDispatchToProps = {
+  setFilter: actionCreator.setFilter,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps, null, { forwardRef: true })(SearchCondition);

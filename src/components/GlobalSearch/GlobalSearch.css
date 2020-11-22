@@ -11,3 +11,9 @@
 #tableWrapper {
   margin: 20px 50px;
 }
+
+.global-search-container{
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 50px;
+}
