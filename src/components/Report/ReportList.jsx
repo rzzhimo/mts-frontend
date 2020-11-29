@@ -113,7 +113,7 @@ class ReportList extends Component {
           <Table columns={ columns } dataSource={ data } />
         </div>
       </div>
-    )
+    );
   }
 }
 
