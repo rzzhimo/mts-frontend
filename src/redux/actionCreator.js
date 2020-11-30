@@ -1,6 +1,9 @@
-export default {
-  setTimeRangeIndex: (data) => ({ type: 'SET_TIME_RANGE_INDEX', payload: data }),
-  setArticleOrderIndex: (data) => ({ type: 'SET_ARTICLE_ORDER_INDEX', payload: data }),
-  setSensitiveAttributeIndex: (data) => ({ type: 'SET_SENSITIVE_ATTRIBUTE_INDEX', payload: data }),
-  setSourceTypeIndex: (data) => ({ type: 'SET_SOURCE_TYPE_INDEX', payload: data }),
-}
+export const actionTypes = {
+  SET_FILTER: 'SET_FILTER',
+  RESET_FILTER: 'RESET_FILTER',
+};
+
+export const actionCreator = {
+  setFilter: (data) => ({ type: actionTypes.SET_FILTER, data }),
+  resetFilter: (data) => ({ type: actionTypes.RESET_FILTER, data }),
+};

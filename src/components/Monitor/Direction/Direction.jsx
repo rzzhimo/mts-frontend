@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { Layout, Menu, Breadcrumb,Button ,Row, Col,Divider,Input,Table,Checkbox} from 'antd';
-import SearchCondition from '../GlobalSearch/SearchCondition';
 import {
     HeartOutlined,
     PlusOutlined,
     SearchOutlined,
   } from '@ant-design/icons';
-import './InfoList.css';
+import '../../common/InfoList/InfoList.scss';
 const { Content, Sider } = Layout;
 class Direction extends Component {
     constructor() {

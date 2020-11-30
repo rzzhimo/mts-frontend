@@ -1,3 +1,5 @@
+@import "../../../constant.scss";
+
 .category {
   padding-left: 0;
 }
@@ -35,6 +37,6 @@ li {
 }
 
 .active{
-  color: red;
+  color: $default-blue;
   font-weight: bold;
 }

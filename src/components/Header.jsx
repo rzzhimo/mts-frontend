@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Menu } from 'antd';
 import { Link, withRouter } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
+import './Header.css';
 
 const history = createBrowserHistory() // history模式
 
@@ -44,6 +45,7 @@ class Header extends Component {
           theme="dark"
           mode="horizontal"
           style={ { lineHeight: '64px' } }
+          className="mts-top-bar"
         >
           <Menu.Item key="home">
             <Link to="/home">首页</Link>

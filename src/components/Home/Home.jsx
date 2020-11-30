@@ -27,7 +27,7 @@ class Home extends Component {
         sensitiveInfo: payload.sensitiveInfo,
         latestInfo: payload.latestInfo,
       });
-    }, 1000);
+    }, 0);
   };
 
   handleClose = (e) => {
@@ -79,7 +79,7 @@ class Home extends Component {
                     <div className="item-tag" />
                     <span className="item-title" onClick={e => this.handleDetail(e, LIST_TYPE.LATEST, index)}>{info.title}</span>
                     <span className="item-source">{`[${info.source.label}]`}</span>
-                    <span className="item-timestamp">{info.timestamp.format('LTS')}</span>
+                    <span className="item-timestamp">{info.timestamp.format('lll')}</span>
                   </div>
                 </li>
               ))}

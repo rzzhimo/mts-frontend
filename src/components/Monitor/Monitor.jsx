@@ -1,102 +1,126 @@
 import React, { Component } from 'react';
-import { Layout, Menu, Breadcrumb,Button ,Row, Col,Divider,Input} from 'antd';
-import {
-  QuestionCircleOutlined,
-  BarChartOutlined,
-  PlusOutlined,
-  SearchOutlined,
-} from '@ant-design/icons';
-import Modify from './Modify'
-import Warning from './Warning'
-import InfoList from './InfoList'
-import Direction from './Direction'
-import './Monitor.css';
-const sort =[
-  {
-    name:'默认',
-    prject:['新冠病毒','DD','ETC','政策法规','专利'],
+import { Layout, Menu, Button, Input, Divider } from 'antd';
+import Modify from './Modify/Modify';
+import Warning from './Warning/Warning';
+import InfoList from '../common/InfoList/InfoList';
+import Direction from './Direction/Direction';
+import payload from './payload';
+import './Monitor.scss';
 
-  },
-  {
-    name:'武器装备',
-    prject:['新冠病毒','DD','ETC','政策法规','专利'],
-
-  },
-  {
-    name:'CETC',
-    prject:['测试','镇城远古','千户测试','理想公司','区块链'],
-
-  },
-  {
-    name:'贸易',
-    prject:['新冠病毒','DD','ETC','政策法规','专利'],
-
-  },
-];
 const { Content, Sider } = Layout;
-const { SubMenu } = Menu;
 
 class Monitor extends Component {
-  
-
   constructor() {
     super();
     this.state = {
-      menuSelectedKey: '1',
-      upmenuSelectedKey: '1',
+      menu: [],
+      results: [],
+      currentForm: null,
+      currentMenu: null,
+      currentSubMenu: null,
     };
   }
 
-  menuHandleClick = (e) => {
-    this.setState({ menuSelectedKey: e.key })
+  componentDidMount() {
+    setTimeout(() => {
+      const { results, menu } = payload;
+      this.setState({
+        results,
+        menu,
+        currentForm: 'info',
+        currentMenu: results[0]?.value,
+        currentSubMenu: results[0]?.subMenu[0]?.value,
+      });
+    }, 0);
   }
-  upmenuHandleClick = (e) => {
-    this.setState({ upmenuSelectedKey: e.key })
+
+  handleClick = (type, value) => {
+    switch (type) {
+      case 'categoryMenu':
+      {
+        const [subMenu, menu] = value.keyPath;
+        this.setState({
+          currentMenu: menu,
+          currentSubMenu: subMenu,
+        });
+        break;
+      }
+      case 'formMenu':
+      {
+        this.setState({ currentForm: value.key });
+        break;
+      }
+      default:
+        break;
+    }
   }
+
   render() {
+    const { currentMenu, currentSubMenu, currentForm, menu, results } = this.state;
+    const currentItem = results.filter(item => item.value === currentMenu).pop();
+    const currentSubItem = currentItem?.subMenu.filter(item => item.value === currentSubMenu).pop();
+    console.log(currentMenu, currentSubMenu);
     return (
-      <Layout style={ { minHeight: '100vh' } }>
-        <Sider className="sider">
-          <Divider plain/>
-          
-          <Row >
-            <Col>
-            <Button danger size="small" icon={<PlusOutlined />}>
-              添加分类
-            </Button>
-            </Col>   
-            <Col >
-            <Button danger size="small" icon={<PlusOutlined />}>
-            添加方案
-            </Button>
-            </Col>
-            
-          </Row>
-          <Divider plain/>
-    <Input placeholder="搜索" prefix={<SearchOutlined />}/>
-          <Menu theme="light" defaultSelectedKeys={ [ '1' ] } mode="inline">
-            <SubMenu icon={ <BarChartOutlined />} title="舆情分析">
-              <Menu.Item key="1" icon={ <QuestionCircleOutlined /> }>全网分析</Menu.Item>
-            </SubMenu>
-          </Menu>
+      <Layout style={{ minHeight: '100vh' }}>
+        <Sider>
+          <div className="side-bar">
+            <Button className="side-bar-btn"> 添加分类 </Button>
+            <Button className="side-bar-btn"> 添加方案 </Button>
+            <Input.Search placeholder="search by label" />
+            <Divider />
+            <Menu
+              onClick={(value) => this.handleClick('categoryMenu', value)}
+              mode="inline"
+              selectedKeys={[currentSubMenu]}
+            >
+              {menu.map((item) => (
+                <Menu.SubMenu
+                  // eslint-disable-next-line react/no-array-index-key
+                  key={item.value}
+                  title={item.label}
+                >
+                  {item.subMenu.map((subItem) => (
+                    // eslint-disable-next-line react/no-array-index-key
+                    <Menu.Item key={subItem.value}>
+                      {subItem.label}
+                    </Menu.Item>
+                  ))}
+                </Menu.SubMenu>
+              ))}
+            </Menu>
+          </div>
         </Sider>
         <Layout className="content">
-        <Menu theme="light" defaultSelectedKeys={ [ '1' ] } mode="horizontal">    
-            <Menu.Item key="1"  onClick={ this.upmenuHandleClick }>信息列表</Menu.Item>
-            <Menu.Item key="2" onClick={ this.upmenuHandleClick }>定向监测</Menu.Item>
-            <Menu.Item key="3" onClick={ this.upmenuHandleClick }>预警设置</Menu.Item>
-            <Menu.Item key="4" onClick={ this.upmenuHandleClick }>修改方案</Menu.Item>
-        </Menu>
+          <div className="sub-menu-title">
+            <a>{`${currentItem?.label} > ${currentSubItem?.label}`}</a>
+          </div>
+          <Menu
+            theme="light"
+            defaultSelectedKeys={['1']}
+            mode="horizontal"
+            onClick={(value) => this.handleClick('formMenu', value)}
+          >
+            <Menu.Item key="info">信息列表</Menu.Item>
+            <Menu.Item key="track">定向监测</Menu.Item>
+            <Menu.Item key="alert">预警设置</Menu.Item>
+            <Menu.Item key="modify">修改方案</Menu.Item>
+          </Menu>
           <Content className="site-layout-background">
-            {this.state.upmenuSelectedKey === '1' && (<InfoList />)}
-            {this.state.upmenuSelectedKey === '2' && (<Direction />)}
-            {this.state.upmenuSelectedKey === '3' && (<Warning />)}
-            {this.state.upmenuSelectedKey === '4' && (<Modify />)}
+            {currentForm === 'info' && (
+              <InfoList
+                currentItem={currentItem}
+                currentSubItem={currentSubItem}
+                data={currentSubItem.articles}
+              />
+            )}
+            {currentForm === 'track' && (<Direction />)}
+            {currentForm === 'alert' && (<Warning />)}
+            {currentForm === 'modify' && (<Modify />)}
           </Content>
         </Layout>
       </Layout>
-    )
+    );
   }
 }
 
-export default Monitor
+export default Monitor;
