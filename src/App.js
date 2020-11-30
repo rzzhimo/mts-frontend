@@ -10,6 +10,7 @@ import Report from './components/Report/Report';
 import Manager from './components/Manager/Manager';
 import Analysis from './components/Analysis/Analysis';
 import Header from './components/Header';
+import Login from './components/Manager/Login'
 import './App.css';
 import './constant.scss';
 
