@@ -3,12 +3,15 @@ import { Card, Button } from 'antd';
 import '../Home/Home.scss';
 import moment from 'moment';
 import payload from './payload';
+import {
+  MailOutlined, HeartOutlined, EditOutlined, CloseCircleOutlined
+} from '@ant-design/icons';
 
 const LIST_TYPE = {
   SENSITIVE: 'sensitive',
   LATEST: 'latest',
   NULL: null,
-}
+};
 
 class Home extends Component {
   constructor(props) {
@@ -21,13 +24,26 @@ class Home extends Component {
     };
   }
 
+  loadList = () => {
+    this.setState({
+      sensitiveInfo: payload.sensitiveInfo,
+      latestInfo: payload.latestInfo,
+    });
+  }
+
+  loadContent = (type, index) => {
+    const { sensitiveInfo, latestInfo } = this.state;
+    const item = type === LIST_TYPE.LATEST ? latestInfo[index] : sensitiveInfo[index];
+  }
+
   componentDidMount() {
-    setTimeout(() => {
-      this.setState({
-        sensitiveInfo: payload.sensitiveInfo,
-        latestInfo: payload.latestInfo,
-      });
-    }, 0);
+    this.loadList();
+    const REFRESH_TIME = -1;
+    if (REFRESH_TIME > 0) {
+      setInterval(() => {
+        this.loadList();
+      }, REFRESH_TIME);
+    }
   };
 
   handleClose = (e) => {
@@ -44,11 +60,44 @@ class Home extends Component {
     }, () => console.log(this.state));
   }
 
+  handleClick = (type) => {
+    const { currentType, currentIndex } = this.state;
+    switch (type) {
+      case 'material':
+        this.handleMaterial(currentType, currentIndex);
+        break;
+      case 'collect':
+        this.handleCollect(currentType, currentIndex);
+        break;
+      case 'mail':
+        this.handleMail(currentType, currentIndex);
+        break;
+      default:
+        break;
+    }
+  }
+
+  handleMaterial = (type, index) => {
+    const { sensitiveInfo, latestInfo } = this.state;
+    const item = type === LIST_TYPE.LATEST ? latestInfo[index] : sensitiveInfo[index];
+  }
+
+  handleCollect = (type, index) => {
+    const { sensitiveInfo, latestInfo } = this.state;
+    const item = type === LIST_TYPE.LATEST ? latestInfo[index] : sensitiveInfo[index];
+  }
+
+  handleMail = (type, index) => {
+    const { sensitiveInfo, latestInfo } = this.state;
+    const item = type === LIST_TYPE.LATEST ? latestInfo[index] : sensitiveInfo[index];
+  }
+
   render() {
     const { sensitiveInfo, latestInfo, currentIndex, currentType } = this.state;
     // eslint-disable-next-line no-nested-ternary
     const currentInfo = currentType === LIST_TYPE.NULL ? null :
       currentType === LIST_TYPE.SENSITIVE ? sensitiveInfo[ currentIndex ] : latestInfo[ currentIndex ];
+    if (currentInfo && !currentInfo.content) this.loadContent(currentType, currentInfo);
     return (
       <div className="home-wrapper">
         <div className="home-column">
@@ -90,10 +139,10 @@ class Home extends Component {
             className="current-mask"
           >
             <Card className="current-item">
-              <Button>collect</Button>
-              <Button>material</Button>
-              <Button>mail</Button>
-              <Button onClick={this.handleClose} >close</Button>
+              <button onClick={this.handleClose}><CloseCircleOutlined /></button>
+              <button onClick={this.handleClick('collect')}><HeartOutlined /></button>
+              <button onClick={this.handleClick('materrial')}><EditOutlined /></button>
+              <button onClick={this.handleClick('mail')}><MailOutlined /></button>
               <div className="item-title">{currentInfo?.title}</div>
               <div className="item-abstract">
                 <div className="abstract-attribute">
@@ -102,7 +151,7 @@ class Home extends Component {
                 </div>
                 <div className="abstract-attribute">
                   <label>链接：</label>
-                  <a>{currentInfo?.link}</a>
+                  <a href={currentInfo?.link}>{currentInfo?.link}</a>
                 </div>
                 <div className="abstract-attribute">
                   <label>属性：</label>
