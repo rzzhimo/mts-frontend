@@ -1,3 +1,4 @@
+import lodash from 'lodash-uuid';
 import {
   generateRandomCNString,
   generateRandomID,
@@ -8,7 +9,8 @@ import {
 } from '../../constant';
 
 const menu = [
-  { label: '默认',
+  {
+    label: '默认',
     value: '默认',
     subMenu: [
       { label: '新冠病毒', value: '新冠病毒' },
@@ -40,6 +42,7 @@ const payload = {
       label: subItem.label,
       value: subItem.value,
       articles: new Array(10).fill(0).map(() => ({
+        id: lodash.uuid(),
         title: generateRandomCNString(10),
         source: sourceTypes[random(0, sourceTypes.length)],
         link: `https://www.invalid.${generateRandomID(10)}.com`,
