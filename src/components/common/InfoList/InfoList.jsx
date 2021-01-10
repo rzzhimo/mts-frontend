@@ -11,6 +11,13 @@ import { actionCreator } from '../../../redux/actionCreator';
 import SearchCondition from '../SearchCondition/SearchCondition';
 import './InfoList.scss';
 
+const rowSelection = {
+  onChange: (selectedRowKeys, selectedRows) => {
+  },
+  getCheckboxProps: record => ({
+    name: record.title
+  }),
+};
 const columns = [
   {
     width: 600,
@@ -44,6 +51,10 @@ class InfoList extends Component {
     };
   }
 
+  exportResult = () => {
+
+  }
+
   handleClick = (type, value) => {
     switch (type) {
       case 'query':
@@ -52,6 +63,14 @@ class InfoList extends Component {
       default:
         break;
     }
+  }
+
+  handleMaterial = (e) => {
+
+  }
+
+  handleCollect = (e) => {
+
   }
 
   filterData = (data) => {
@@ -135,12 +154,15 @@ class InfoList extends Component {
               type="primary"
               size="medium"
               block
+              onClick={this.exportResult}
             >
               导出Excel
             </Button>
           </div>
           <div id="table">
             <Table
+              rowKey={record => record.title}
+              rowSelection={rowSelection}
               columns={columns}
               dataSource={data}
               pagination={{ position: ['none', 'bottomRight'] }}
@@ -153,10 +175,10 @@ class InfoList extends Component {
                     批量操作：
                   </Checkbox>
                   <div id="iconButton">
-                    <Button primary icon={<TagsOutlined />} />
+                    <Button primary icon={<TagsOutlined />} onClick={e => this.handleMaterial(e)}/>
                   </div>
                   <div id="iconButton">
-                    <Button primary icon={<HeartOutlined />} />
+                    <Button primary icon={<HeartOutlined />} onClick={e => this.handleCollect(e)}/>
                   </div>
                   <div id="input">
                     <Input placeholder="在结果中搜索，支持单个单词" />
@@ -184,7 +206,6 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-  resetFilter: actionCreator.resetFilter,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps, null, { forwardRef: true })(InfoList);

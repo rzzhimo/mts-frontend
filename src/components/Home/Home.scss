@@ -77,6 +77,16 @@
   border-top: 5px $default-blue solid;
   & button {
     float: right;
+    background: $default-white;
+    border: 1px solid transparent;
+    box-shadow: 1px 1px 1px $default-gray;
+    border-radius: 2px;
+    transition: border 0.5s;
+    box-sizing: border-box;
+    outline: none;
+    &:hover, &:active {
+      border: 1px solid $default-blue;
+    }
   }
   .item-title {
     font-size: 22px;
